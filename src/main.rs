@@ -1,5 +1,3 @@
-use std::error::Error;
-
 use anyhow::{Context, Result};
 use clap::Parser;
 
@@ -16,7 +14,7 @@ struct Cli {
 #[test]
 fn find_a_match() {
     let mut result = Vec::new();
-    find_matches("lorem ipsum\ndolor sit amet", "lorem", &mut result);
+    let _ = find_matches("lorem ipsum\ndolor sit amet", "lorem", &mut result);
     assert_eq!(result, b"lorem ipsum\n")
 }
 
@@ -35,6 +33,6 @@ fn main() -> Result<()> {
     let content = std::fs::read_to_string(&args.path)
         .with_context(|| format!("could not read file `{}`", args.path.display()))?;
 
-    find_matches(&content, &args.pattern, &mut std::io::stdout());
+    let _ = find_matches(&content, &args.pattern, &mut std::io::stdout());
     return Ok(());
 }
